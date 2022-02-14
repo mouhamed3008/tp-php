@@ -10,38 +10,59 @@
 
         if (isset($tab)) { ?>
            <h1>Les nombres premier</h1>
-        <table>
+        <table border="1">
           <tr>
             <?php
-              foreach ($tab["premier"] as $premier) { ?>
-                    <td><?= $premier ?></td>
-                    <?php } ?>
+    
+            for ($i=0; $i <count($tab["premier"]); $i++) {  ?>
+              <td><?= $tab["premier"][$i] ?></td>
+                    <?php 
+                     if ($i%10==0) {
+                      echo "</tr>";
+                    } 
+                   
+                    }
+                    ?>
                     
-                  </tr>
+                  
               </table>
 
 
-        <h1>Les nombres sup</h1>
-        <table>
+        
+        <h1>Les nombres superieurs a la moyenne</h1>
+        <table border="1">
           <tr>
             <?php
-              foreach ($tab["superieur"] as $superieur) { ?>
-                    <td><?= $superieur ?></td>
-                    <?php } ?>
+    
+            for ($i=0; $i <count($tab["superieur"]); $i++) {  ?>
+              <td><?= $tab["superieur"][$i] ?></td>
+                    <?php 
+                     if ($i%10==0) {
+                      echo "</tr>";
+                    } 
+                   
+                    }
+                    ?>
                     
-                  </tr>
+                  
               </table>
 
-
-              <h1>Les nombres inf</h1>
-        <table>
+              <h1>Les nombres inférieurs a la moyenne</h1>
+              <table border="1">
           <tr>
             <?php
-              foreach ($tab["inferieur"] as $inferieur) { ?>
-                    <td><?= $inferieur ?></td>
-                    <?php } ?>
+    
+            for ($i=0; $i <count($tab["inferieur"]); $i++) {  ?>
+              <td><?= $tab["inferieur"][$i] ?></td>
+                    <?php 
+                     if ($i%10==0) {
+                      echo "</tr>";
+                    } 
+                   
+                    }
+                    ?>
                     
-                  </tr>
+                  
               </table>
           <?php  }
 

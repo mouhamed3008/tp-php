@@ -9,15 +9,12 @@ require_once 'controller.php';
         }
         th, td {
         padding: 15px;
+		color: black;
         }
-        table{
-            margin:0px 0px 0px 200px;
-			color: white;
-        }
-        tr:nth-child(even) {background: #357A}
+        tr:nth-child(even) {background: #fff}
         tr:nth-child(odd) {background: #5673}
 		h4{
-			color: white;
+			color: black;
 		}
     </style>
 

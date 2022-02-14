@@ -16,7 +16,7 @@
         if (!is_empty($nombre) && is_chaine_numeric($nombre) && $nombre > 100 ){
             for ($i=2; $i < $nombre; $i++) { 
               if (nbr_premier($i)) {
-                  $tab["premier"][$i] = $i;
+                  $tab["premier"][] = $i;
                
               }
               $som+=$i;
@@ -24,9 +24,9 @@
             $moy = $som / $nombre;
             for ($i=0; $i < $nombre; $i++) { 
                 if ($i < $moy) {
-                    $tab["inferieur"][$i] = $i;
+                    $tab["inferieur"][] = $i;
                 } else if ($i > $moy){
-                  $tab["superieur"][$i] = $i;
+                  $tab["superieur"][] = $i;
                     
                 }
                 

@@ -153,3 +153,62 @@ function render(string $path, array $var = []){
      }
      return false;
  }
+
+ function Taille($tableau){
+	if (isset($tableau))
+	{
+	$compteur =0;
+	foreach ($tableau as $value) {
+		$compteur++;
+	}
+	return $compteur;
+}
+}
+
+function car_tolower($car){
+    global $caracteres;
+    foreach($caracteres as $lettres){
+        for($i=0; $i<size_t($lettres); $i++){
+            if($lettres[$i] === $car){
+                return $lettres[0];
+            }
+        }
+    }
+    return $car;
+}
+
+function size_t($chaine){
+    for($i=0; true; $i++){
+        if(!isset($chaine[$i])){
+            break;
+        }
+    }
+    return $i;
+}
+
+function get_phrases($text){
+    $phrases = [];
+    $p = '';
+    for($i=0; $i<size_t($text); $i++){
+        if($text[$i] !== '.' && $text[$i] !== '!' && $text[$i] !== '?'){
+            $p .= $text[$i];
+        }else{
+            $p .= $text[$i];
+            $phrases[] = $p;
+            $p = '';
+        }
+    }
+    return $phrases;
+}
+
+function car_toupper($car){
+    global $caracteres;
+    foreach($caracteres as $lettres){
+        for($i=0; $i<size_t($lettres); $i++){
+            if($lettres[$i] === $car){
+                return $lettres[1];
+            }
+        }
+    }
+    return $car;
+}

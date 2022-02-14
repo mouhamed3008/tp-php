@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,7 @@ function Taille($tableau){
 ?>
 <!--Nous allons afficher la partie saisie (l'ensemble des numeros dans le zone de texte)-->
 <p>
-	<form method="post" action="?page=exo14">
+	<form method="post">
 		<p>
 			<hr class="barreSeparation">
 			<div class="message1" ><strong>Veuillez saisir l'ensemble des numeros :</strong></div>
@@ -31,9 +31,9 @@ function Taille($tableau){
 		</p>
 		<div class="message3">
 			<textarea class="marge" name="numeros" cols="100" rows="10" value="">
-			<?php echo $_POST['numeros']; ?>
+			<?= (isset($_POST['numeros'])) ? $_POST['numeros'] : '' ?>
 			</textarea>
-			<input class="valider"  type="submit" value="Envoyer">
+			<input class="valider"  type="submit" value="Envoyer" name="valider">
 		</div>
 	</form>
 </p>
@@ -47,11 +47,13 @@ function Taille($tableau){
 
 
 <?php
-$_POST['numeros'] = '';
 
-//Nous allons essayé de recuperer de tous les numeros valides ou invalides
-(preg_match_all("/[0-9]+[(\s)(,)(\-)]/mi", $_POST['numeros'],$numero));
-//Nombre total de numéros
+$TabNumInvalides = [];
+if (isset($_POST['valider'])) {
+
+	//Nous allons essayé de recuperer de tous les numeros valides ou invalides
+	(preg_match_all("/[0-9]+[(\s)(,)(\-)]/mi", $_POST['numeros'],$numero));
+	//Nombre total de numéros
 $TailleNumTotal = Taille($numero[0]);
 //Nous allons essayé de recuperer les numeros de telephones valides  
 (preg_match_all("/[7][0,5-8][0-9]{7}[(\s)(,)(\-)]/mi", $_POST['numeros'],$num));
@@ -79,7 +81,12 @@ if (Taille($numero[0])>0)
 	}
 }
 //Creation du tableau multidimensionnel associatif contenant les tableaux de chaque opérateur
-$Tableaux = [['orange'=>$orange],['free'=>$free],['expresso'=>$expresso],['promobile'=>$promobile]];
+$Tableaux = [
+	"orange" => [],
+	"exprsso" => [],
+	"free" => [],
+	"promobile" => [],
+];
 
 $compt1 =0;
 $compt2 =0;
@@ -119,6 +126,9 @@ $Total=100/($compt1 + $compt2 +$compt3 +$compt4);
 	$Total =0;
 }
 
+}
+
+
 
 
 ?>
@@ -130,15 +140,19 @@ $Total=100/($compt1 + $compt2 +$compt3 +$compt4);
 		</div>
 		<div class="third">
 					<?php
+			
 							if (Taille($Tableaux['orange'])>0)
 					{
 							echo "<td>";
+							echo $compt1." numéros soit ";
 							echo (int)($compt1*$Total)."%";
 							echo "</td>";
 					}
 					else
 					{
 						echo "<td>";
+						echo $compt1." numéros soit ";
+
 							echo "0%";
 						echo "</td>";
 					}
@@ -154,12 +168,14 @@ $Total=100/($compt1 + $compt2 +$compt3 +$compt4);
 							if (Taille($Tableaux['free'])>0)
 					{
 							echo "<td>";
+							echo $compt2." numéros soit ";
 							echo (int)($compt2*$Total)."%";
 							echo "</td>";
 					}
 					else
 					{
 						echo "<td>";
+						echo $compt2." numéros soit ";
 							echo "0%";
 						echo "</td>";
 					}
@@ -175,12 +191,14 @@ $Total=100/($compt1 + $compt2 +$compt3 +$compt4);
 							if (Taille($Tableaux['expresso'])>0)
 					{
 							echo "<td>";
+							echo $compt3." numéros soit ";
 							echo (int)($compt3*$Total)."%";
 							echo "</td>";
 					}
 					else
 					{
 						echo "<td>";
+						echo $compt3." numéros soit ";
 							echo "0%";
 						echo "</td>";
 					}
@@ -196,12 +214,14 @@ $Total=100/($compt1 + $compt2 +$compt3 +$compt4);
 							if (Taille($Tableaux['promobile'])>0)
 					{
 							echo "<td>";
+							echo $compt4." numéros soit ";
 							echo (int)($compt4*$Total)."%";
 							echo "</td>";
 					}
 					else
 					{
 						echo "<td>";
+						echo $compt4." numéros soit ";
 							echo "0%";
 						echo "</td>";
 					}
@@ -212,7 +232,7 @@ $Total=100/($compt1 + $compt2 +$compt3 +$compt4);
 
 <!--Nous allons afficher la partie saisie (l'ensemble des numeros dans le zone de texte)-->
 <p>
-	<form method="post" >
+	<form method="post" action="">
 		<p>
 			<hr class="barreSeparation">
 			<div class="message1" ><strong>L'ensemble des numeros invalides :</strong></div>

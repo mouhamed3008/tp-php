@@ -1,33 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Exercice 4</title>
+	<link rel="stylesheet" type="text/css" href="stylexo4.css">
+</head>
+<body>
 <?php
-require_once 'fonctions.php';
-$message="";
-$nbMots=0;
-$tabPhrases=[];
-$tabErreurs=[];
-$motsAvecM=[];
-if (isset($_POST['valider'])) {
-    $nbMots=$_POST['nbMots'];
-    if (!is_chaine_numeric($nbMots)|| $nbMots <=0 ) {
-        $message="Veuillez saisir un entier supérieur à 0 !";
-        $nbMots=0;
-    }
+#Fonction pour calculer la longueur (la taille) d'un tableau !!!
+function Taille($tableau){
+	if (isset($tableau))
+	{
+	$compteur =0;
+	foreach ($tableau as $value) {
+		$compteur++;
+	}
+	return $compteur;
 }
-
-if (isset($_POST['annuler'])){
-   $nbMots = 0;
 }
+?>
+<!--Nous allons afficher la partie saisie (du nombre de phrases et du texte à analyse)-->
+<p>
+	<form method="post" action="exo4.php">
+		<p>
+			<hr class="barreSeparation">
+			<div class="message1" ><strong>Veuillez saisir vos phrases:</strong></div>
+			<hr class="barreSeparation">
+		</p>
+		<div class="message3">
+		<textarea class="marge" name="message" cols="100" rows="10"><?php echo $_POST['message']; ?></textarea>
+		<input class="valider" type="submit" value="Corriger">
+		</div>
+	</form>
+</p>
 
-if (isset($_POST['result'])) {
-    extract($_POST);
-    
-    if (!is_empty($phrase) && is_phrase($phrase) && delete_spc_beetween($phrase)) {
-        $tabPhrases[] = $phrase;
-        render("view/exo13/index", compact("tabPhrases"));
-    }else{
-        $msg = "Saisissez des phrases";
-        render("view/exo13/index", compact("msg"));
+<hr class="barreSeparation">
+<div class="message2" ><strong>Correction de votre texte !!!</strong></div>
+<hr class="barreSeparation">
+<!--Nous allons afficher la partie correction du texte -->
 
-    }
-}
+<?php 
+$Tableau = [];
+$TabCorrige = [];
+//Nous allons tenter de recuperer l'ensemble des phrases qui respectent les regles.
+preg_match_all("#[A-Za-z]{1}([^.!?]|([.][0-9])){1,199}[.!?]#m", $_POST['message'],$phrase);
+
+
+//Recuperation des phrases et l'insertion dans un tableau...
+	foreach ($phrase[0] as $value)
+	{
+		$value = preg_replace('#\s\s+#'," ", $value);
+		$value = preg_replace('#\(\s+#', "(", $value);
+		$value = preg_replace('#\s+\)#', ")", $value);
+		$value = preg_replace('#\'\s+#', "'", $value);
+		$value = preg_replace('#\s+\'#', "'", $value);
+		$value = preg_replace('#\’\s+#', "’", $value);
+		$value = preg_replace('#\s+\’#', "’", $value);
+		$value = preg_replace('#\s+,#', ",", $value);
+		$value = preg_replace('#,\s+#', ", ", $value);
+		$value = preg_replace('#\s+\.#', ".", $value);
+		$Tableau[]= $value; 
+	}	
+
+
+	foreach ($Tableau as $value){ 
+	if (preg_match("#^[a-z]#", $value)){
+		$b=strtoupper($value[0]);
+		$value = preg_replace("#^[a-z]#",$b, $value);
+		$TabCorrige[] = $value; 
+	}
+	else
+		$TabCorrige[] =$value; 
+	}
+
 
 ?>
+	<p>
+		<div class="message3">
+		<textarea class="marge" style="cursor: context-menu;" name="message" cols="100" rows="10"><?php 
+			if (Taille($TabCorrige)>0)
+			{
+				foreach($TabCorrige as $data)
+				{
+					echo $data." ";
+				}
+			}
+			?> 
+		</textarea>
+	</div>
+	</p>
+
+</body>
+</html>

@@ -127,13 +127,18 @@ nav ul li a span.rotate{
   transform: translateY(-50%) rotate(-180deg);
 }
 .content{
-  position: absolute;
-  top: 30%;
-  left: 40%;
-  transform: translate(-50%,-50%);
-  color: #202020;
-  z-index: -1;
-  text-align: center;
+  max-width: 1200px;
+  width: 100%;
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 130px auto;
+  position: relative;
 }
 .content .header{
   font-size: 45px;
@@ -339,3 +344,6 @@ label {
     max-width: 35px;
   }
 }
+
+/**/
+
